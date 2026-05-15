@@ -1,0 +1,21 @@
+# Helm
+charts/
+Chart.lock
+*.tgz
+
+# Secrets
+.env
+*.key
+*.pem
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
