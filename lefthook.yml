@@ -1,0 +1,6 @@
+pre-commit:
+  parallel: true
+  commands:
+    linting:
+      run: just lint
+      stage_fixed: true
