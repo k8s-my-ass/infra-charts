@@ -1,0 +1,6 @@
+apiVersion: v2
+name: argo-cd-apps
+description: ApplicationSets for infra-charts GitOps platform
+type: application
+version: 1.0.0
+appVersion: "1.0.0"

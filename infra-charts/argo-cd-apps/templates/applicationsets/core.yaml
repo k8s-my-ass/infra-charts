@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: core
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - name: argo-cd
+            namespace: argocd
+            path: core/argo-cd
+  template:
+    metadata:
+      name: "{{`{{name}}`}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/k8s-my-ass/infra-charts.git
+        targetRevision: main
+        path: "infra-charts/{{`{{path}}`}}"
+        helm:
+          valueFiles:
+            - "values.common.yaml"
+            - "values.test.yaml"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{`{{namespace}}`}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
