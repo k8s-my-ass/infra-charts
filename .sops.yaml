@@ -1,0 +1,10 @@
+creation_rules:
+  - path_regex: values\.prod\.yaml$
+    age:
+    encrypted_regex: "^(password|passwd|pwd|secret|token|apikey|accessKey|privateKey)$"
+    mac_only_encrypted: true
+
+  - path_regex: values\.test\.yaml$
+    age: age1f2ups0y2ktvt8ah75yh766awkz7j43ytfdc8cucsmpfcqagmq5lq8kt5uf
+    encrypted_regex: "^(password|passwd|pwd|secret|token|apikey|accessKey|privateKey)$"
+    mac_only_encrypted: true

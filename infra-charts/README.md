@@ -70,6 +70,8 @@ mkdir -p ~/.kube
 sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
 sudo chown "$(whoami):$(whoami)" ~/.kube/config
 chmod 600 ~/.kube/config
+export KUBECONFIG=~/.kube/config
+echo 'export KUBECONFIG=~/.kube/config' >> ~/.bashrc
 
 echo 'export KUBECONFIG=~/.kube/config' >> ~/.bashrc
 source ~/.bashrc
@@ -90,15 +92,161 @@ kubectl get svc -n istio-system istio-ingressgateway
 
 ### Этап 0: Подготовка VPS (вне git)
 
+Устанавливаем `k3s`, `kubectl`, `Ansible` и зависимости на управляющую ноду.
+
+#### Установка k3s
+
 ```bash
 # Установка k3s без встроенного Traefik
 curl -sfL https://get.k3s.io | sh -s - server --disable=traefik
 
-# kubeconfig для Lens/Ansible
+# kubeconfig для текущего пользователя
 mkdir -p ~/.kube
 sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
-sudo chown $USER ~/.kube/config
+sudo chown "$(whoami):$(whoami)" ~/.kube/config
 chmod 600 ~/.kube/config
+export KUBECONFIG=~/.kube/config
+echo 'export KUBECONFIG=~/.kube/config' >> ~/.bashrc
+```
+
+#### Установка Ansible и модулей
+
+```bash
+# Создаём и активируем окружение
+python3 -m venv venv
+. venv/bin/activate
+
+# Устанавливаем Ansible
+pip install -r venv/requirements.txt
+
+# Проверка установки
+ansible --version
+
+# Устанавливаем модули
+ansible-galaxy collection install -r requirements.yml
+
+# Деактивируем окружение
+deactivate
+```
+
+#### Установка Age
+
+```bash
+# Скачиваем последний релиз (проверь актуальную версию на https://github.com/getsops/sops/releases)
+cd /tmp
+curl -Lo age.tar.gz "https://github.com/FiloSottile/age/releases/download/v1.3.1/age-v1.3.1-linux-amd64.tar.gz"
+tar -xzf age.tar.gz
+
+sudo mv age/age /usr/local/bin/
+sudo mv age/age-keygen /usr/local/bin/
+
+# Проверка установки
+age --version
+age-keygen --version
+```
+
+#### Установка Sops
+
+```bash
+# Скачиваем последний релиз (проверь актуальную версию на https://github.com/getsops/sops/releases)
+cd /tmp
+curl -Lo sops "https://github.com/getsops/sops/releases/download/v3.13.1/sops-v3.13.1.linux.amd64"
+chmod +x sops
+
+sudo mv sops /usr/local/bin/
+
+# Проверка
+sops --version
+```
+
+Настройка age-ключа для Sops
+
+```bash
+# Создаём директорию для ключей
+mkdir -p ~/.config/sops/age
+
+# Генерируем ключ (приватный + публичный)
+age-keygen -o ~/.config/sops/age/keys.txt
+```
+
+Вывод будет примерно таким:
+
+```plaintext
+Public key: age1ql3z7yy3k5fww0c7c9r8v2s7t9u0v1w2x3y4z5...
+```
+
+Шифрование и расшифровка файлов:
+
+```bash
+# Зашифровать файл
+sops -e -i infra-charts/core/argocd/values.secrets.yaml
+
+# Расшифровать для просмотра
+sops -d infra-charts/core/argocd/values.secrets.yaml
+
+# Редактировать зашифрованный файл (sops автоматически расшифрует и зашифрует при сохранении)
+sops infra-charts/core/argocd/values.secrets.yaml
+```
+
+Шифруем приватный age-ключ через `Ansible Vault`
+
+```bash
+ansible-vault encrypt_string 'AGE-SECRET-KEY-1QZ2HFAJ...' --name 'sops_age_key'
+```
+
+Вывод будет таким:
+
+```plaintext
+sops_age_key: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  34616535353761303066343232306663666132386237653963353531326237643431323765303330
+  3930343235363261633132393364653433383239626334660a626436356131616435666331323634
+  65346361316536306635366430383836363563643164316333326635306534653561316136636338
+  6438386232313234650a383638393937636534626564613133363730636232383066313339643538
+  35386431333832303638643139623838323962653934613237373962643664303965306666633561
+  66663231336234663532636266396533333237336164373039383663666437313361623330663262
+  32306232363161346335356661393964343737303931626162376336383038316133633239663165
+  36363961343566663563
+```
+
+Вставляем в inventory (`ansible/inv-<ENV>.yaml`):
+
+```yaml
+all:
+  children:
+    initial-host:
+      hosts:
+        localhost:
+          ansible_connection: local
+          stage_values_file: values.test.yaml
+          sops_age_key: !vault |
+            $ANSIBLE_VAULT;1.1;AES256
+            34616535353761303066343232306663666132386237653963353531326237643431323765303330
+            3930343235363261633132393364653433383239626334660a626436356131616435666331323634
+            65346361316536306635366430383836363563643164316333326635306534653561316136636338
+            6438386232313234650a383638393937636534626564613133363730636232383066313339643538
+            35386431333832303638643139623838323962653934613237373962643664303965306666633561
+            66663231336234663532636266396533333237336164373039383663666437313361623330663262
+            32306232363161346335356661393964343737303931626162376336383038316133633239663165
+            36363961343566663563
+```
+
+#### Создаём и активируем venv
+
+```bash
+cd ~/infra-charts/ansible
+
+# Создаём окружение
+python3 -m venv ~/ansible-venv
+
+# Активируем
+. ~/ansible-venv/bin/activate
+
+# Проверь, что venv активировался
+which python3
+
+# Проверяем, что pip из venv
+which pip
 ```
 
 ### Этап 1: ArgoCD bootstrap через Ansible
