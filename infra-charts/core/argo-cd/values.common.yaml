@@ -1,0 +1,73 @@
+argo-cd:
+  global:
+    securityContext:
+      runAsUser: 999
+      runAsGroup: 999
+      fsGroup: 999
+    logging:
+      format: json
+
+  configs:
+    cm:
+      exec.enabled: "true"
+      statusbadge.enabled: "true"
+      helm.secrets.enabled: "true"
+      helm.valuesFileSchemas: >-
+        secrets,secrets+age-import,secrets+age-import-kubernetes
+      application.resourceTrackingMethod: label
+    tls:
+      certificates: {}
+
+  dex:
+    enabled: false
+
+  controller:
+    tolerations:
+      - key: node-role.kubernetes.io/infra
+        effect: NoSchedule
+    resources:
+      requests:
+        cpu: 250m
+        memory: 256Mi
+      limits:
+        memory: 1000Mi
+
+  redis:
+    tolerations:
+      - key: node-role.kubernetes.io/infra
+        effect: NoSchedule
+
+  server:
+    tolerations:
+      - key: node-role.kubernetes.io/infra
+        effect: NoSchedule
+    ingress:
+      enabled: false
+      path: /argocd
+
+  repoServer:
+    tolerations:
+      - key: node-role.kubernetes.io/infra
+        effect: NoSchedule
+
+  applicationSet:
+    tolerations:
+      - key: node-role.kubernetes.io/infra
+        effect: NoSchedule
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        memory: 128Mi
+
+  notifications:
+    tolerations:
+      - key: node-role.kubernetes.io/infra
+        effect: NoSchedule
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        memory: 128Mi
