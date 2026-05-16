@@ -13,6 +13,11 @@
 ## Структура репозитория
 
 ```bash
+ansible/
+├── install-argo.yaml       # Плейбук с установкой argo-cd
+├── inv-prod.yaml           # Инвентарник для прод-окружения
+├── inv-test.yaml           # Инвентарник для тестового окружения
+├── venv-requirements.txt   # Ansible-модули
 infra-charts/
 ├── argo-cd-apps/           # Корневой GitOps-конвейер (ApplicationSet'ы)
 ├── backup-dr/              # Резервное копирование и аварийное восстановление
@@ -60,11 +65,17 @@ infra-charts/
 # Установка k3s без встроенного ingress (оставляем порты 80/443 для Istio)
 curl -sfL https://get.k3s.io | sh -s - server --disable=traefik
 
-# kubeconfig для Lens
+# kubeconfig для текущего пользователя
 mkdir -p ~/.kube
 sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
-sudo chown $USER ~/.kube/config
+sudo chown "$(whoami):$(whoami)" ~/.kube/config
 chmod 600 ~/.kube/config
+
+echo 'export KUBECONFIG=~/.kube/config' >> ~/.bashrc
+source ~/.bashrc
+
+# Проверка
+kubectl get nodes
 ```
 
 На k3s встроен **Klipper Service LB** (`servicelb`). Когда Istio Gateway создаёт Service `type: LoadBalancer`, k3s автоматически назначает IP вашей VPS. **_MetalLB не нужен_**.

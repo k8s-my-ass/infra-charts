@@ -26,8 +26,7 @@ infra-charts/
 ├── security/               # Runtime security, policies
 ├── storage/                # CSI и хранилища
 ├── global-values/          # Общие константы
-├── _templates/             # Шаблоны генерации
-└── justfile                # Команды
+└── _templates/             # Шаблоны генерации
 ```
 
 ## k3s на VPS
