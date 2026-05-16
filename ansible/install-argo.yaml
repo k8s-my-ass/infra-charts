@@ -1,0 +1,90 @@
+- hosts: initial-host
+  run_once: true
+  gather_facts: false
+  tasks:
+    - name: Check if helm already installed
+      ansible.builtin.stat:
+        path: /usr/local/bin/helm
+      register: helm_stat
+
+    - block:
+        - name: Create helm temp directory
+          ansible.builtin.file:
+            path: /tmp/helm
+            state: directory
+            mode: "0755"
+
+        - name: Download and unarchive Helm
+          ansible.builtin.unarchive:
+            src: "https://get.helm.sh/helm-v3.17.0-linux-amd64.tar.gz"
+            dest: /tmp/helm
+            remote_src: true
+
+        - name: Move Helm binary
+          become: true
+          ansible.builtin.command: mv /tmp/helm/linux-amd64/helm /usr/local/bin/helm
+          changed_when: true
+
+      when: not helm_stat.stat.exists
+
+    - name: Ensure argocd namespace and SOPS secret exist
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          - apiVersion: v1
+            kind: Namespace
+            metadata:
+              name: argocd
+          - apiVersion: v1
+            kind: Secret
+            metadata:
+              name: argocd-sops-age
+              namespace: argocd
+            type: Opaque
+            data:
+              age.key: "{{ sops_age_key | b64encode }}"
+      tags:
+        - sops
+
+    - name: Install chart argo-cd
+      kubernetes.core.helm:
+        name: argocd
+        chart_ref: "{{ playbook_dir }}/../infra-charts/core/argo-cd/"
+        release_namespace: argocd
+        create_namespace: true
+        values_files:
+          - "{{ playbook_dir }}/../infra-charts/core/argo-cd/values.common.yaml"
+          - "{{ playbook_dir }}/../infra-charts/core/argo-cd/{{ stage_values_file }}"
+        wait: true
+        timeout: 10m
+      tags:
+        - argocd
+
+    - name: Wait for ArgoCD CRDs to be established
+      kubernetes.core.k8s_info:
+        api_version: apiextensions.k8s.io/v1
+        kind: CustomResourceDefinition
+        name: "{{ item }}"
+        wait: true
+        wait_condition:
+          type: Established
+          status: "True"
+        wait_sleep: 5
+        wait_timeout: 300
+      loop:
+        - applications.argoproj.io
+        - applicationsets.argoproj.io
+      tags:
+        - argocd
+
+    - name: Install chart argo-cd-apps
+      kubernetes.core.helm:
+        name: argo-cd-apps
+        chart_ref: "{{ playbook_dir }}/../infra-charts/argo-cd-apps/"
+        release_namespace: argocd
+        create_namespace: true
+        values_files:
+          - "{{ playbook_dir }}/../infra-charts/argo-cd-apps/values.common.yaml"
+          - "{{ playbook_dir }}/../infra-charts/argo-cd-apps/{{ stage_values_file }}"
+      tags:
+        - apps

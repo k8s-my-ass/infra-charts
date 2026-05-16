@@ -8,6 +8,9 @@ Chart.lock
 *.key
 *.pem
 
+# Ansible
+venv/
+
 # IDE
 .idea/
 .vscode/
