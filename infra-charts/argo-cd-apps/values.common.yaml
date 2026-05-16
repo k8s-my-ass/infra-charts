@@ -1,0 +1,6 @@
+project: default
+destination:
+  server: https://kubernetes.default.svc
+
+layers:
+  core: true
