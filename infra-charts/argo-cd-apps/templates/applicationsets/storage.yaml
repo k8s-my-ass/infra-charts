@@ -9,7 +9,7 @@ spec:
         elements:
           - name: openebs
             namespace: openebs
-            path: infra-charts/storage/openebs
+            path: storage/openebs
   template:
     metadata:
       name: "{{`{{name}}`}}"
