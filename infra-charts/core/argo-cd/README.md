@@ -25,7 +25,6 @@ helm upgrade --install argocd -n argocd infra/argocd \
 ## Особенности
 
 - В `argo-cd.cm.helm.valuesFileSchemes` включены схемы `secrets://` и `secrets+age-import://`.
-- Для `dev/prod` в `values.<env>.yaml` задан `cmp.helmSops.envValuesFile`.
 
 ## Проверка
 

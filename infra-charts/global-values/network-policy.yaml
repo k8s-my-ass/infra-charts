@@ -1,19 +1,19 @@
 # Базовые сетевые параметры для NetworkPolicies
 
-global:
-  network:
-    trustedCIDRs:
-      - 10.0.0.0/8
-      - 172.16.0.0/12
-      - 192.168.0.0/16
+# global:
+#   network:
+#     trustedCIDRs:
+#       - 10.0.0.0/8
+#       - 172.16.0.0/12
+#       - 192.168.0.0/16
 
-    namespaceLabels:
-      ingress: ingress-nginx
-      monitoring: observability
-      data: data
-      security: security
+#     namespaceLabels:
+#       ingress: ingress-nginx
+#       monitoring: observability
+#       data: data
+#       security: security
 
-    allowedPorts:
-      - 443
-      - 80
-      - 8080
+#     allowedPorts:
+#       - 443
+#       - 80
+#       - 8080
