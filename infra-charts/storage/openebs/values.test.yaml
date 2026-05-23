@@ -1,0 +1,20 @@
+openebs:
+  loki:
+    singleBinary:
+      replicas: 1
+      persistence:
+        size: 1Gi
+
+    minio:
+      replicas: 1
+      persistence:
+        size: 2Gi
+
+  alloy:
+    logging_config:
+      debugging: true
+
+  engines:
+    replicated:
+      mayastor:
+        enabled: false

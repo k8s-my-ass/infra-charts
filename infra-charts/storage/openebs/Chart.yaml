@@ -1,0 +1,10 @@
+apiVersion: v2
+version: 4.5.0-develop
+
+type: application
+name: openebs
+
+dependencies:
+  - name: openebs-crds
+    version: 4.5.0-develop
+    repository: https://openebs.github.io/openebs
