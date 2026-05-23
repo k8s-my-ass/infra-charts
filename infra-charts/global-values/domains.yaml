@@ -1,0 +1,18 @@
+# Ingress-домены по окружениям
+# global:
+#   domains:
+#     # Base domain для каждого окружения
+#     test: test.example.com
+#     staging: staging.example.com
+#     prod: example.com
+
+#     # Субдомены под конкретные сервисы
+#     argocd: argocd
+#     grafana: grafana
+#     prometheus: prometheus
+#     alertmanager: alertmanager
+#     harbor: harbor
+#     gitlab: gitlab
+#     keycloak: auth
+#     vault: vault
+#     backstage: portal

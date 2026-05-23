@@ -1,0 +1,19 @@
+# Глобальные endpoints для алертинга
+# global:
+#   alerting:
+#     slack:
+#       webhookSecretName: slack-webhook
+#       webhookSecretKey: url
+#       defaultChannel: "#platform-alerts"
+
+#     pagerduty:
+#       enabled: false
+#       serviceKeySecretName: pagerduty-key
+#       serviceKeySecretKey: key
+
+#     email:
+#       enabled: false
+#       smtpHost: smtp.example.com
+#       smtpPort: 587
+#       from: platform@example.com
+#       to: oncall@example.com

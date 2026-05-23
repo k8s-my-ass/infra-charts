@@ -1,0 +1,18 @@
+# StorageClass маппинг по окружениям и типам workload
+# global:
+#   storage:
+#     classes:
+#       test:
+#         standard: openebs-hostpath
+#         fast: openebs-hostpath
+#         archive: openebs-hostpath
+#       prod:
+#         standard: openebs-hostpath
+#         fast: openebs-hostpath
+#         archive: openebs-hostpath
+
+#     # Дефолтный StorageClass
+#     defaultClass: standard
+
+#     # Snapshot class для backup
+#     snapshotClass: csi-snapclass

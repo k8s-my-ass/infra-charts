@@ -5,7 +5,6 @@ Wrapper Helm chart для установки Argo CD
 ## Состав
 
 - `Chart.yaml` - dependency на upstream chart `argo-cd` (версия `9.5.6`)
-- `values.yaml` - базовая конфигурация Argo CD
 - `values.common.yaml` - общие настройки
 - `values.test.yaml`, `values.prod.yaml` - env-override
 
@@ -26,7 +25,6 @@ helm upgrade --install argocd -n argocd infra/argocd \
 ## Особенности
 
 - В `argo-cd.cm.helm.valuesFileSchemes` включены схемы `secrets://` и `secrets+age-import://`.
-- Для `dev/prod` в `values.<env>.yaml` задан `cmp.helmSops.envValuesFile`.
 
 ## Проверка
 

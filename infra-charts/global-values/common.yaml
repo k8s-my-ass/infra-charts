@@ -1,0 +1,25 @@
+# Общие дефолты для всех окружений
+# global:
+#   platform:
+#     name: infra-charts
+#     managedBy: argocd
+
+#   labels:
+#     app.kubernetes.io/part-of: infra-charts
+#     app.kubernetes.io/managed-by: argocd
+#     platform.company.io/tenant: platform
+
+#   tolerations: []
+
+#   affinity:
+#     podAntiAffinity:
+#       preferredDuringSchedulingIgnoredDuringExecution:
+#         - weight: 100
+#           podAffinityTerm:
+#             labelSelector:
+#               matchExpressions:
+#                 - key: app.kubernetes.io/part-of
+#                   operator: In
+#                   values:
+#                     - infra-charts
+#             topologyKey: topology.kubernetes.io/zone

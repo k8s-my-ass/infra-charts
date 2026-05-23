@@ -117,7 +117,7 @@ python3 -m venv venv
 . venv/bin/activate
 
 # Устанавливаем Ansible
-pip install -r venv/requirements.txt
+pip install -r venv-requirements.txt
 
 # Проверка установки
 ansible --version
@@ -231,29 +231,11 @@ all:
             36363961343566663563
 ```
 
-#### Создаём и активируем venv
-
-```bash
-cd ~/infra-charts/ansible
-
-# Создаём окружение
-python3 -m venv ~/ansible-venv
-
-# Активируем
-. ~/ansible-venv/bin/activate
-
-# Проверь, что venv активировался
-which python3
-
-# Проверяем, что pip из venv
-which pip
-```
-
 ### Этап 1: ArgoCD bootstrap через Ansible
 
 Не используем argocd CLI binary. Весь bootstrap - через `Ansible`.
 
 ```bash
 # Из корня репозитория
-ansible-playbook -i ansible/inv-<ENV> ansible/install-argo.yaml -D
+ansible-playbook -i ansible/inv-<ENV> ansible/install-argo.yaml -D --ask-vault-pass
 ```
