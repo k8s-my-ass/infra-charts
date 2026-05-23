@@ -4,3 +4,4 @@ destination:
 
 layers:
   core: true
+  storage: true
