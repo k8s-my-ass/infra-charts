@@ -2,3 +2,4 @@ argo-cd:
   configs:
     secret:
       argocdServerAdminPassword: "$2b$10$NNBcGiPmHH4TsebwFuAUKukSiYavgUpbWcOtFbcy89KE7eUPnf/Ju" # bcrypt
+      server.secretkey: "7qzHshGHwWqmFPhC7v5nkPgrAwKV37h5" # plaintext

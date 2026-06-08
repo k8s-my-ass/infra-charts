@@ -15,8 +15,6 @@ argo-cd:
       helm.valuesFileSchemas: >-
         secrets,secrets+age-import,secrets+age-import-kubernetes
       application.resourceTrackingMethod: label
-    tls:
-      certificates: {}
 
   dex:
     enabled: false
@@ -46,9 +44,20 @@ argo-cd:
       path: /argocd
 
   repoServer:
+    image:
+      repository: ghcr.io/k8s-my-ass/infra-images/argocd-repo-server
+      tag: "3.4.3"
+
     tolerations:
       - key: node-role.kubernetes.io/infra
         effect: NoSchedule
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        memory: 512Mi
 
   applicationSet:
     tolerations:
