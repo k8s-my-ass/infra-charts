@@ -1,0 +1,36 @@
+cert-manager:
+  global:
+    commonLabels:
+      environment: test
+      team: platform
+
+    logLevel: 4
+
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+
+  prometheus:
+    enabled: false
+
+  webhook:
+    resources:
+      requests:
+        cpu: 5m
+        memory: 16Mi
+      limits:
+        cpu: 50m
+        memory: 64Mi
+
+  cainjector:
+    resources:
+      requests:
+        cpu: 5m
+        memory: 16Mi
+      limits:
+        cpu: 50m
+        memory: 64Mi

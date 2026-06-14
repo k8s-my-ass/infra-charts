@@ -1,0 +1,53 @@
+cert-manager:
+  global:
+    commonLabels:
+      environment: production
+      team: platform
+  replicaCount: 2
+
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+
+  prometheus:
+    servicemonitor:
+      enabled: true
+      prometheusInstance: prod
+
+  webhook:
+    replicaCount: 2
+
+    podDisruptionBudget:
+      enabled: true
+      minAvailable: 1
+
+    resources:
+      requests:
+        cpu: 20m
+        memory: 32Mi
+      limits:
+        cpu: 100m
+        memory: 128Mi
+
+  cainjector:
+    replicaCount: 2
+
+    podDisruptionBudget:
+      enabled: true
+      minAvailable: 1
+
+    resources:
+      requests:
+        cpu: 20m
+        memory: 32Mi
+      limits:
+        cpu: 100m
+        memory: 128Mi
