@@ -4,43 +4,39 @@ openebs:
       replicas: 1
       persistence:
         size: 1Gi
-
-  minio:
-    replicas: 1
-    mode: standalone
-    persistence:
-      size: 2Gi
-    rootUser: ENC[AES256_GCM,data:kiw+xtyV/lAhGg==,iv:UfaYAjgxcwULnKsT81SDGQJJlaGRFkHF7SaeJmKE6Jk=,tag:sHPC0fM794to0Sya9zkvIQ==,type:str]
-    rootPassword: ENC[AES256_GCM,data:r1b2AvAKPQ5hxX4X8uGwpw==,iv:F5auzrqzZKTQYYJfqNzAJb3j2FXF7AMCPE5L7nHk3Dw=,tag:R/Wfr8vA1Yg6PLOKF6JF0w==,type:str]
-    resources:
-      requests:
-        cpu: 100m
-        memory: 256Mi
-    postJob:
-      enabled: false
-
+    minio:
+      replicas: 1
+      mode: standalone
+      persistence:
+        size: 2Gi
+      rootUser: ENC[AES256_GCM,data:cLevaSDRU8zqPw==,iv:6PeZB7JxDwa/ey8ujk4vJHZrNqFesQADs40MzdQnePI=,tag:zQ5F7+BnyLMmomeN+5IWzg==,type:str]
+      rootPassword: ENC[AES256_GCM,data:nYNsSYRpXt3fk+9T4Ao8Dg==,iv:ZhNzLNs1EaJ6lx/pxhv7FudWhg/JUNftV3eG1oSI4yA=,tag:BymQwFRJ4HWoZC4pZlatxQ==,type:str]
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+      postJob:
+        enabled: false
   alloy:
     logging_config:
       debugging: true
-
   engines:
     replicated:
       mayastor:
         enabled: false
-
 sops:
   age:
     - enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBXYUdiL2Erc0RaNk9IREYz
-        UjIwT1A2V0tzdzh3VFdLWFJhR3ZmMnJVQ1JjCnZHZWtXRkVXMkV2eW1xQUZTYjlh
-        Uk8reEtMQy83aDJHUGhWQzZlekNFMlEKLS0tIGoyb1VsR1NYMWhJTlFPb3NmN05E
-        eldsdDZuT1AzUU1QVUxHeDNWVXIybkkKBcWlOWZpyCdANAA+DUHihJaonXxBpSeC
-        +LPWyqSUXagY7oW0bBiBFAQDPd7jbErMJseOBy4rvDSA5qdN6Kwi7w==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBQMS9PWlFrbW9pUFZJL3VX
+        TDBrdTJoeVZHM1lQVmcxaHIwQktlYXI2RXdnCnU2UlcvK2ZPa0Y1dlpVUDNvaUg0
+        UGprK2FNOTNYamo0N0lhNVJlYXg5ZTgKLS0tIFFLRndiN0ErQkl2Wk5YK1RKSXNM
+        L1lMK3pZeVAxb1h0RWlyWGkzbVlBSFEK/L8GVu/QZUgf7I4hjYuTUNwG/J9gVZDN
+        vtoZ9qs5tPlN0UMEDT4SXnDpa5VoUlb6/qekerkZweRp+qXRheehzw==
         -----END AGE ENCRYPTED FILE-----
       recipient: age1f2ups0y2ktvt8ah75yh766awkz7j43ytfdc8cucsmpfcqagmq5lq8kt5uf
   encrypted_regex: ^(password|passwd|pwd|secret|token|apikey|accessKey|privateKey|rootUser|rootPassword)$
-  lastmodified: "2026-06-14T08:31:22Z"
-  mac: ENC[AES256_GCM,data:pa30bhO1jX7AVoEcl/BMwF8Tux2iiAtFikBnhGPHo/HwxzDu6HDyE4o+D/effu9+FhWfBPvJM2sQocB73JG6YA4ghBTsJTx2t0R3RdqTyavz+hR1Z6q3vHA3YhpuQhL0rRMkWbpJOA8SmM6MBXL1x653VHUMIA7g25WmteQVlmw=,iv:rXWMmAaQjAYgHTHOcf6lZQcOpMuH5MARBP+6xFRfKC8=,tag:Jpi2Zx2Za7xAiYBhWWVQYw==,type:str]
+  lastmodified: "2026-06-14T18:05:09Z"
+  mac: ENC[AES256_GCM,data:EesQKzKnrQDhLIbGEPdr4YPumDNRKyAIQx2VsqGE0tdQVuqfldPBSagfRCivco9j4aY8yfl5oVFODuxffsHOvoxgBLlgNDk3w39NcREaCKuU/m6HRanaiyQktLx6TbGiUo8D+9QfuShLfy3d1uRM/CjJdhgbpgOHuiq8mHYPj0E=,iv:OMAETTy38MBvOIqIDtLjNabmnedy5+D9iwSBjGrBvsY=,tag:Zv2tC80IdK1SWSnkccxQcw==,type:str]
   mac_only_encrypted: true
   version: 3.13.1

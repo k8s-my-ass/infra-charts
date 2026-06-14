@@ -1,18 +1,21 @@
 openebs:
   loki:
-    singleBinary:
-      persistence:
-        size: 10Gi
-
-    resources:
-      requests:
-        cpu: 500m
-        memory: 2Gi
-      limits:
-        cpu: 2
-        memory: 8Gi
-
-  minio:
-    replicas: 4
-    persistence:
-      size: 50Gi
+    minio:
+      rootUser: ENC[AES256_GCM,data:LtDDnGQ=,iv:mZfqbhs53d/ScKFS1VtEuEAeHNFsDPPp3leSCUtplfk=,tag:AvQS+tZuFwV2LT5k43avfA==,type:str]
+      rootPassword: ENC[AES256_GCM,data:GfobU+ta2YpF/PHqqWsgfw==,iv:4rPrwY834/TQ6sNJ2Cmy8aL83GarvdzjMB+kCXqQ+ZU=,tag:lsqawqjkCoJET6Q2Ni6L4Q==,type:str]
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAwU21uZjBHekV1eitVeWk2
+        d1VGVTY1dWhtS3kvV3JsMVJsd2VjbkZpZTBzCk9iem15eWVKWW5Jcm1pU25zNnFi
+        N3U3eHNmKy9MVUMwbFNWTGdhbmhsT3cKLS0tIFA1a1pNdjFXc2FjQnpCc1VIREtQ
+        T3JVMEV0ZGhWbFJlUXR1ejZDdldISDQKR2BE7jL5X9tdXj06mlMyX0e9mI/0CL1E
+        /VQl4p/+aZkGqLQbW7jLNz0sD9WW7H8Ejp51l0ljEPRxHF4Trfr4iA==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age1fn9u8ayq5cdary9466n7dmd7g8kp0hgeuz7vs7yr7z7zeel2vs3sjlhgft
+  encrypted_regex: ^(password|passwd|pwd|secret|token|apikey|accessKey|privateKey|rootUser|rootPassword)$
+  lastmodified: "2026-06-14T18:17:49Z"
+  mac: ENC[AES256_GCM,data:1iprwpjJzISk4aN0GNBxJa/KpGYKrSzGbfe4EvJ+eZIFAyV/Llou0Nac1gYzPJtX691Gp94Pmel6NGtMGJfgWtpeUBNgJUIcyVd3sJhm8johvZsN7ah8/udxK2lxfBsM/4sVGVWTuigHy0s5Evkk34VBikuKD93CFcumqJIfQH0=,iv:p4pCThz/E/GkTe2Wroyg6isyNRoWMjltKqk947+qy4M=,tag:w/VSc336f46MM1t5IEVFww==,type:str]
+  mac_only_encrypted: true
+  version: 3.13.1
