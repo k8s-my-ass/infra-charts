@@ -1,7 +1,6 @@
 kube-prometheus-stack:
   grafana:
-    adminUser: ENC[AES256_GCM,data:jyqIb6Q=,iv:3BYZtLg20qQG/x117CHZAUyw784oVTO4YH/wRr8T7ps=,tag:txW648cvkqSkCvTKQGw9GA==,type:str]
-    adminPassword: ENC[AES256_GCM,data:84DF5dc=,iv:pCqclepdctZK7gaU3tPq+YeFLpTR960kggy/A6H/g2s=,tag:o7y4X2iedsByXgfeJYHmOw==,type:str]
+    adminPassword: ENC[AES256_GCM,data:koQRe5U=,iv:6irBuF+JJ9gVap0MZRC2BrqGg6d626srm/4Xc/sf+6M=,tag:QLCn62gVhM3vIfEKGWTc1g==,type:str]
     persistence:
       enabled: false
   prometheus:
@@ -25,15 +24,15 @@ sops:
   age:
     - enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBiTjh4d21FNXpDMG9pcXF6
-        dmhKc2h6RnpZYjl2U1NpTnBsSjlPbi9JeUd3CkN1aHRXWEgvV0NVdzZ1YitveFVG
-        QnVscmwwRkdjTVV5b3dBY3daMzR3ODgKLS0tIGxidVZiY2NHbHh3MER2OGVGVVkx
-        U0Y0RjRpcU1IcjVXNlVCVURvNXRCQUUKWdIhTWeivmmNqZATwpRWtJlT3xm3yDIV
-        nMUkOXZvD4WnRJRriWPO7ccNELGuI9d0Vdnju68sdqYsKW0uEMFMTg==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBoektCcnNOeHhRYXVFQzhJ
+        Mzd1ZHNwQS9NTlFKc0Q4UjNIaFcrUWpYS1dNCmhGNExTbHY0QWVFamtlam1BNlc2
+        ZW56b0FQVWd5dEIvN3o5akZpRUl6aVEKLS0tIEpJdis1VEV4aTBNNW9saU5TU2gy
+        MUtrSC9pWFpHOWRleGNuU29jZkxvQjAKZH588iXJU3V75UxX8xSnTjB6AZljD94T
+        t+ubi3anTc7pNbmn3gkDwJejjKBlfMBQN9SkmkKLTd2C7+7LOEhk+A==
         -----END AGE ENCRYPTED FILE-----
       recipient: age1f2ups0y2ktvt8ah75yh766awkz7j43ytfdc8cucsmpfcqagmq5lq8kt5uf
   encrypted_regex: ^(password|passwd|pwd|secret|token|apikey|accessKey|privateKey|rootUser|rootPassword|adminUser|adminPassword)$
-  lastmodified: "2026-06-15T18:59:12Z"
-  mac: ENC[AES256_GCM,data:MH3YPnN+xGhzv2mOh4XzADMNhDWHFCF//14Om5swf5dfF1m10Rj3dD3KPyv13hycdk1coxJwNJgZ4rlDPlW1WLyx2ZDI5YVtIFEbYf0l5u1VbpzVvsZJJyYm4j8aDsJag1Ql4WdaJqfY5YjRvQ/ib1JCATAUOqZ+7mxGiMmlI7w=,iv:FiHkjGwhl6XSZJ1CaHcKdYUIcaRRH72vFxuiRPvHnSU=,tag:NstrS9FeolkKkGbjlEpc/g==,type:str]
+  lastmodified: "2026-06-15T19:18:04Z"
+  mac: ENC[AES256_GCM,data:i6+phkXNfAhf/ulksioctoK+6bJmnOmo4SCw0tRo5V+kL6O5w1rhsgQmVoBvmmnO8mg9yR9lyY35Uvyv5UZuMZAPLbeHA4mocgsNOJUwfbGZHvK3JjPOQtz3gZu1KxhcCu2X8v+t6qPc+pAxM3h1czGMKyP6fEHw11E5yYJ2p2U=,iv:Icii5iH+lWvo4c1h4+RmU59Upkf7x1XE3D6xFR1D68o=,tag:IenhvlEpyO7XPpwUUsgCmQ==,type:str]
   mac_only_encrypted: true
   version: 3.13.1
