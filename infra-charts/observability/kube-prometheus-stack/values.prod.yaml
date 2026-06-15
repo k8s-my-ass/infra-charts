@@ -1,0 +1,58 @@
+kube-prometheus-stack:
+  grafana:
+    adminUser: ENC[AES256_GCM,data:MIzdo3g=,iv:IPvP1FU5K8IKJ6ORojGzpesjWDrya7qBONioTfy6hT8=,tag:C3QcSD3dY5QZzLhfFOgJhw==,type:str]
+    adminPassword: ENC[AES256_GCM,data:11UNR+0WKeXfvFspDL7Mmg==,iv:fqsHSKGzV7PHdyMMvzPubf4fufYKJ4zp0Z+LqHPT8RQ=,tag:puL55UaWlQVPnpqAd081OA==,type:str]
+    persistence:
+      enabled: true
+      storageClassName: openebs-hostpath
+      size: 2Gi
+  prometheus:
+    prometheusSpec:
+      resources:
+        requests:
+          cpu: 200m
+          memory: 512Mi
+        limits:
+          memory: 2Gi
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: openebs-hostpath
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 10Gi
+  alertmanager:
+    alertmanagerSpec:
+      resources:
+        requests:
+          cpu: 20m
+          memory: 64Mi
+        limits:
+          memory: 128Mi
+      storage:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: openebs-hostpath
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 1Gi
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBhakFoSU5UMktHaHJoVVM4
+        MTNZY0I1VzJRdndKV3NQR2F5cCtBcUlRcVRFCm56OThxVmhNcDM0TWtEUWtaOWpw
+        NC9NMUZJdDZ6R1ZWWHd1SE50RkpnaE0KLS0tIFkxSnJWc2hmdlU4ckV3OW1LcVFp
+        R0JVcXh2Q2dDcFUvU3FkTElVZVZDdUkKfpB0wpWVQvOcykNbPJKU2FGpTDeMm1fz
+        ZDsqt63px8IrFmTcyRbJ7z5Kp2j5SMfb9Y5ZzjHjHWr0XNs0iitm+A==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age1fn9u8ayq5cdary9466n7dmd7g8kp0hgeuz7vs7yr7z7zeel2vs3sjlhgft
+  encrypted_regex: ^(password|passwd|pwd|secret|token|apikey|accessKey|privateKey|rootUser|rootPassword|adminUser|adminPassword)$
+  lastmodified: "2026-06-15T18:59:16Z"
+  mac: ENC[AES256_GCM,data:0IhCs5oXnleOnSQsPE9og4SIw6tKNqwep4cIm6aMqAFq2S1l4wJnrlct06HdeHFb6r1pzXH6rcV7qQLqNVJtu06NRYU+KSOyv5+wtlbDVSyTDwmGOMd3m/5j4wd12GhDZ+/geGwfq8wmsiR2fhp72+Sejv4YO2/0wce8i35Mt+U=,iv:0DZQf6heUQnSeDGEYDD5k7ADyjp62rxr91oRPpHfwWU=,tag:yARhISqI3rtBmvZ8hqXHCA==,type:str]
+  mac_only_encrypted: true
+  version: 3.13.1

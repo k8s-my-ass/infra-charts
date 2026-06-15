@@ -1,0 +1,39 @@
+kube-prometheus-stack:
+  grafana:
+    adminUser: ENC[AES256_GCM,data:jyqIb6Q=,iv:3BYZtLg20qQG/x117CHZAUyw784oVTO4YH/wRr8T7ps=,tag:txW648cvkqSkCvTKQGw9GA==,type:str]
+    adminPassword: ENC[AES256_GCM,data:84DF5dc=,iv:pCqclepdctZK7gaU3tPq+YeFLpTR960kggy/A6H/g2s=,tag:o7y4X2iedsByXgfeJYHmOw==,type:str]
+    persistence:
+      enabled: false
+  prometheus:
+    prometheusSpec:
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          memory: 512Mi
+      retention: 1d
+  alertmanager:
+    alertmanagerSpec:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 32Mi
+        limits:
+          memory: 64Mi
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBiTjh4d21FNXpDMG9pcXF6
+        dmhKc2h6RnpZYjl2U1NpTnBsSjlPbi9JeUd3CkN1aHRXWEgvV0NVdzZ1YitveFVG
+        QnVscmwwRkdjTVV5b3dBY3daMzR3ODgKLS0tIGxidVZiY2NHbHh3MER2OGVGVVkx
+        U0Y0RjRpcU1IcjVXNlVCVURvNXRCQUUKWdIhTWeivmmNqZATwpRWtJlT3xm3yDIV
+        nMUkOXZvD4WnRJRriWPO7ccNELGuI9d0Vdnju68sdqYsKW0uEMFMTg==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age1f2ups0y2ktvt8ah75yh766awkz7j43ytfdc8cucsmpfcqagmq5lq8kt5uf
+  encrypted_regex: ^(password|passwd|pwd|secret|token|apikey|accessKey|privateKey|rootUser|rootPassword|adminUser|adminPassword)$
+  lastmodified: "2026-06-15T18:59:12Z"
+  mac: ENC[AES256_GCM,data:MH3YPnN+xGhzv2mOh4XzADMNhDWHFCF//14Om5swf5dfF1m10Rj3dD3KPyv13hycdk1coxJwNJgZ4rlDPlW1WLyx2ZDI5YVtIFEbYf0l5u1VbpzVvsZJJyYm4j8aDsJag1Ql4WdaJqfY5YjRvQ/ib1JCATAUOqZ+7mxGiMmlI7w=,iv:FiHkjGwhl6XSZJ1CaHcKdYUIcaRRH72vFxuiRPvHnSU=,tag:NstrS9FeolkKkGbjlEpc/g==,type:str]
+  mac_only_encrypted: true
+  version: 3.13.1

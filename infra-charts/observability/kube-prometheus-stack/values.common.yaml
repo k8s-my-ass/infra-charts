@@ -1,0 +1,19 @@
+kube-prometheus-stack:
+  defaultRules:
+    rules:
+      windows: false
+
+  kubeControllerManager:
+    enabled: false
+
+  kubeScheduler:
+    enabled: false
+
+  kubeProxy:
+    enabled: false
+
+  kubeEtcd:
+    enabled: false
+
+  grafana:
+    defaultDashboardsTimezone: Europe/Moscow
