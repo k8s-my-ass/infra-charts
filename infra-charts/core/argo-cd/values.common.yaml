@@ -15,6 +15,11 @@ argo-cd:
       helm.valuesFileSchemas: >-
         secrets,secrets+age-import,secrets+age-import-kubernetes
       application.resourceTrackingMethod: label
+      configManagementPlugins: |
+        - name: helm-secrets
+          generate:
+            command: ["helm-secrets"]
+            args: ["template", "--values", "{{ .ValuesFile }}", "{{ .Path }}"]
 
   dex:
     enabled: false
