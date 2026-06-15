@@ -18,8 +18,22 @@ argo-cd:
       configManagementPlugins: |
         - name: helm-secrets
           generate:
-            command: ["helm-secrets"]
-            args: ["template", "--values", "{{ .ValuesFile }}", "{{ .Path }}"]
+            command: ["sh", "-c"]
+            args:
+              - |
+                if [[ "{{ .ValuesFile }}" == *secrets:* ]]; then
+                  helm-secrets template \
+                    --values "{{ .ValuesFile }}" \
+                    --namespace "{{ .Release.Namespace }}" \
+                    --name-template "{{ .Release.Name }}" \
+                    "{{ .Path }}"
+                else
+                  helm template \
+                    --values "{{ .ValuesFile }}" \
+                    --namespace "{{ .Release.Namespace }}" \
+                    --name-template "{{ .Release.Name }}" \
+                    "{{ .Path }}"
+                fi
 
   dex:
     enabled: false
