@@ -21,7 +21,7 @@ argo-cd:
             command: ["sh", "-c"]
             args:
               - |
-                if [[ "{{ .ValuesFile }}" == *secrets:* ]]; then
+                if [[ "{{ .ValuesFile }}" == secrets:* ]]; then
                   helm-secrets template \
                     --values "{{ .ValuesFile }}" \
                     --namespace "{{ .Release.Namespace }}" \
