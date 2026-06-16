@@ -66,6 +66,9 @@ argo-cd:
     image:
       repository: ghcr.io/k8s-my-ass/infra-images/argocd-repo-server
       tag: "3.4.3"
+    env:
+      - name: ARGOCD_HELM_VALUES_FILE_SCHEMES
+        value: "secrets,secrets+age-import,secrets+age-import-kubernetes"
 
     tolerations:
       - key: node-role.kubernetes.io/infra
