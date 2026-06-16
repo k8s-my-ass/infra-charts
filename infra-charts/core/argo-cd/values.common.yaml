@@ -15,33 +15,11 @@ argo-cd:
       helm.valuesFileSchemes: >-
         secrets,secrets+age-import,secrets+age-import-kubernetes
       application.resourceTrackingMethod: label
-      configManagementPlugins: |
-        - name: helm-secrets
-          generate:
-            command: ["sh", "-c"]
-            args:
-              - |
-                if [[ "{{ .ValuesFile }}" == secrets:* ]]; then
-                  helm-secrets template \
-                    --values "{{ .ValuesFile }}" \
-                    --namespace "{{ .Release.Namespace }}" \
-                    --name-template "{{ .Release.Name }}" \
-                    "{{ .Path }}"
-                else
-                  helm template \
-                    --values "{{ .ValuesFile }}" \
-                    --namespace "{{ .Release.Namespace }}" \
-                    --name-template "{{ .Release.Name }}" \
-                    "{{ .Path }}"
-                fi
 
   dex:
     enabled: false
 
   controller:
-    env:
-      - name: ARGOCD_HELM_VALUES_FILE_SCHEMES
-        value: "secrets,secrets+age-import,secrets+age-import-kubernetes"
     tolerations:
       - key: node-role.kubernetes.io/infra
         effect: NoSchedule
@@ -69,9 +47,6 @@ argo-cd:
     image:
       repository: ghcr.io/k8s-my-ass/infra-images/argocd-repo-server
       tag: "3.4.3"
-    env:
-      - name: ARGOCD_HELM_VALUES_FILE_SCHEMES
-        value: "secrets,secrets+age-import,secrets+age-import-kubernetes"
 
     tolerations:
       - key: node-role.kubernetes.io/infra
@@ -83,6 +58,19 @@ argo-cd:
         memory: 256Mi
       limits:
         memory: 512Mi
+
+    env:
+      - name: SOPS_AGE_KEY_FILE
+        value: /helm-secrets-private-keys/key.txt
+
+    volumes:
+      - name: helm-secrets-private-keys
+        secret:
+          secretName: helm-secrets-private-keys
+
+    volumeMounts:
+      - mountPath: /helm-secrets-private-keys
+        name: helm-secrets-private-keys
 
   applicationSet:
     tolerations:
