@@ -23,7 +23,7 @@ spec:
         helm:
           valueFiles:
             - "values.common.yaml"
-            - "secrets://values.test.yaml"
+            - "secrets+age-import:///helm-secrets-private-keys/key.txt?values.test.yaml"
       destination:
         server: https://kubernetes.default.svc
         namespace: "{{`{{namespace}}`}}"
