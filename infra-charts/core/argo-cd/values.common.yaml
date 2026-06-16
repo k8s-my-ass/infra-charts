@@ -39,6 +39,9 @@ argo-cd:
     enabled: false
 
   controller:
+    env:
+      - name: ARGOCD_HELM_VALUES_FILE_SCHEMES
+        value: "secrets,secrets+age-import,secrets+age-import-kubernetes"
     tolerations:
       - key: node-role.kubernetes.io/infra
         effect: NoSchedule
