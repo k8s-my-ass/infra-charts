@@ -12,7 +12,7 @@ argo-cd:
       exec.enabled: "true"
       statusbadge.enabled: "true"
       helm.secrets.enabled: "true"
-      helm.valuesFileSchemas: >-
+      helm.valuesFileSchemes: >-
         secrets,secrets+age-import,secrets+age-import-kubernetes
       application.resourceTrackingMethod: label
       configManagementPlugins: |
