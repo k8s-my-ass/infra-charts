@@ -3,6 +3,6 @@ destination:
   server: https://kubernetes.default.svc
 
 layers:
-  core: false
+  core: true
   observability: true
   storage: true
